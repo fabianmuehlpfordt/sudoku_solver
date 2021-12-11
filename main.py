@@ -1,16 +1,17 @@
 # Imports
+import math
 import pandas as pd
 
 # Side Functions
 def read_sudoko_csv(file, sep):
     # reading csv-file, return dataframe
-    df = pd.read_csv(filepath_or_buffer=file, sep=sep, header=None)
+    df = pd.read_csv(filepath_or_buffer=file, sep=sep, header=None).fillna(0).astype(int)
 
     # check if number of cols equals number of rows
     if df.shape[0] == df.shape[1]:
         return df
     else:
-        print('Shape invalid! Sudoku is not a square.')
+        print('Shape invalid! Your Sudoku is not a square.')
         exit()
 
 def create_dict_rows(df):
@@ -47,15 +48,28 @@ def create_dict_blocks(df, blocks):
             i = 0
             num_blocks = []
             while i < 3:
-                num_blocks = num_blocks + df.iloc[y*3:y*3+2,x*3+i].to_list()
+                num_blocks = num_blocks + df.iloc[y*3:y*3+3, x*3+i].to_list()
                 i += 1
-
             dict[f'block_{x}{y}'] = num_blocks
             y += 1
         x += 1
 
+    # check if each block contains exact 9 numbers
+    for key in dict:
+        if len(dict[f'{key}']) != 9:
+            print(f'Error! {key} length should be 9 but is ' + len(dict[f'{key}']))
+            exit()
+
     # return dict
     return dict
+
+def remove_zeros_from_list(list):
+    for key in list:
+        list[f'{key}'] = [x for x in list[f'{key}'] if x != 0]
+
+    # return list
+    return list
+
 
 # Main Function
 if __name__ == "__main__":
@@ -83,8 +97,14 @@ if __name__ == "__main__":
     num_blocks = create_dict_blocks(df=sudoku, blocks=blocks)
     if test_mode: print(num_rows, "\n", num_cols, "\n", num_blocks)
 
-    # TODO: create empty list for each block
+    # remove zeros from lists
+    num_rows = remove_zeros_from_list(list=num_rows)
+    num_cols = remove_zeros_from_list(list=num_cols)
+    num_blocks = remove_zeros_from_list(list=num_blocks)
+    if test_mode: print(num_rows, "\n", num_cols, "\n", num_blocks)
 
+    # TODO: create empty list for each block - not longer necessary!
+    
 
 
     # TODO: read blocks, put existing numbers in lists
