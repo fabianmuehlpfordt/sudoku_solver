@@ -103,8 +103,9 @@ if __name__ == "__main__":
     num_blocks = remove_zeros_from_list(list=num_blocks)
     if test_mode: print(num_rows, "\n", num_cols, "\n", num_blocks)
 
-    # TODO: create empty list for each block - not longer necessary!
-    
+    # create sudoku solution dataframe
+    sudoku_sol = sudoku
 
+    # TODO: start solving the sudoku
 
-    # TODO: read blocks, put existing numbers in lists
+    # TODO: export and save solution
