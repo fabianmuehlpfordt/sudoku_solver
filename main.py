@@ -15,26 +15,41 @@ def read_sudoko_csv(file, sep):
 
 def create_dict_rows(df):
     # create empty dict
-    lists = {}
+    dict = {}
 
     # iterating over rows
     for i, rows in df.iterrows():
-        lists[f'row_{i}'] = df.iloc[i, :].to_list()
+        dict[f'row_{i}'] = df.iloc[i, :].to_list()
 
     # return dict
-    return lists
+    return dict
 
 def create_dict_cols(df):
     # create empty dict
-    lists = {}
+    dict = {}
 
     # iterating over cols
     for col in df:
-        lists[f'col_{col}'] = df.iloc[:, col].to_list()
+        dict[f'col_{col}'] = df.iloc[:, col].to_list()
 
     # return dict
-    return lists
+    return dict
 
+def create_dict_blocks(df, blocks):
+    # create empty dict
+    dict = {}
+
+    # slice df into blocks and store numbers, x = columns, y = rows
+    x = 0
+    while x < blocks:
+        y = 0
+        while y < blocks:
+            dict[f'block_{x}{y}'] = []
+            y += 1
+        x += 1
+
+    # return dict
+    return dict
 
 # Main Function
 if __name__ == "__main__":
@@ -57,9 +72,10 @@ if __name__ == "__main__":
 
     # create empty list for each row and col
     # read rows and cols, put existing numbers in lists
-    rows = create_dict_rows(df=sudoku)
-    cols = create_dict_cols(df=sudoku)
-    if test_mode: print(rows, "\n", cols)
+    num_rows = create_dict_rows(df=sudoku)
+    num_cols = create_dict_cols(df=sudoku)
+    num_blocks = create_dict_blocks(df=sudoku, blocks=blocks)
+    if test_mode: print(num_rows, "\n", num_cols, "\n", num_blocks)
 
     # TODO: create empty list for each block
 
