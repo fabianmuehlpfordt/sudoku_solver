@@ -6,6 +6,8 @@ import pandas as pd
 # Main Function
 if __name__ == "__main__":
 
+    # TODO: instead of csv-file read image
+
     # TODO: read in csv-file instead of image
 
     # TODO: count rows and cols, must be equal
