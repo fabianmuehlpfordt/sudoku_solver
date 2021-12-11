@@ -112,6 +112,7 @@ venv.bak/
 
 # PyCharm projekt settings
 .idea/
+test.py
 
 # Spyder project settings
 .spyderproject
