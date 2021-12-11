@@ -44,7 +44,13 @@ def create_dict_blocks(df, blocks):
     while x < blocks:
         y = 0
         while y < blocks:
-            dict[f'block_{x}{y}'] = []
+            i = 0
+            num_blocks = []
+            while i < 3:
+                num_blocks = num_blocks + df.iloc[y*3:y*3+2,x*3+i].to_list()
+                i += 1
+
+            dict[f'block_{x}{y}'] = num_blocks
             y += 1
         x += 1
 
