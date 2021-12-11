@@ -13,27 +13,56 @@ def read_sudoko_csv(file, sep):
         print('Shape invalid! Sudoku is not a square.')
         exit()
 
+def create_dict_rows(df):
+    # create empty dict
+    lists = {}
+
+    # iterating over rows
+    for i, rows in df.iterrows():
+        lists[f'row_{i}'] = df.iloc[i, :].to_list()
+
+    # return dict
+    return lists
+
+def create_dict_cols(df):
+    # create empty dict
+    lists = {}
+
+    # iterating over cols
+    for col in df:
+        lists[f'col_{col}'] = df.iloc[:, col].to_list()
+
+    # return dict
+    return lists
+
+
 # Main Function
 if __name__ == "__main__":
 
-    # TODO: define params
+    # define params
+    test_mode = True
     csv_file = "data/sudoku.csv"
     csv_sep = ","
 
     # TODO: instead of csv-file read image
 
-    # TODO: read in csv-file instead of image
+    # read in csv-file instead of image
+    # count rows and cols, must be equal
     sudoku = read_sudoko_csv(file=csv_file, sep=csv_sep)
-    print(sudoku)
+    if test_mode: print(sudoku)
 
-    # TODO: count rows and cols, must be equal
+    # count number of 3x3 blocks
+    blocks = int( sudoku.shape[1] / 3 )
+    if test_mode: print(f'number blocks: {blocks}')
 
-    # TODO: count number of 3x3 blocks
-
-    # TODO: create empty list for each row and col
+    # create empty list for each row and col
+    # read rows and cols, put existing numbers in lists
+    rows = create_dict_rows(df=sudoku)
+    cols = create_dict_cols(df=sudoku)
+    if test_mode: print(rows, "\n", cols)
 
     # TODO: create empty list for each block
 
-    # TODO: read rows and cols, put existing numbers in lists
+
 
     # TODO: read blocks, put existing numbers in lists
