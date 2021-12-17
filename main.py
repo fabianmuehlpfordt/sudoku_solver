@@ -104,7 +104,9 @@ if __name__ == "__main__":
     if test_mode: print(num_rows, "\n", num_cols, "\n", num_blocks)
 
     # create sudoku solution dataframe
-    sudoku_sol = sudoku
+    for k in sorted(num_cols, key=lambda k: len(num_cols[k]), reverse=True):
+        num_cols_sorte
+
 
     # TODO: start solving the sudoku
 
